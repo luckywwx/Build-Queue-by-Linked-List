@@ -1,0 +1,76 @@
+"""
+Created on Sun Sep  9 21:27:37 2018
+
+@author: lucky
+"""
+
+class ListNode:
+    
+    def __init__(self,val = None):
+        self.val = val
+        self.next = None
+    
+class MyQueue:
+    
+    def __init__(self):
+        #Initialization
+        self.dummy = ListNode(-1)
+        self.tail = self.dummy
+        
+    """
+    @param: item: An integer
+    @return: nothing
+    """
+    def enqueue(self,item):
+        node = ListNode(item)
+        self.tail.next = node
+        self.tail = node
+        
+        
+    """
+    @return: An integer
+    """
+    def dequeue(self):
+        item = self.dummy.next
+        self.dummy.next = self.dummy.next.next
+        
+        if self.dummy.next is None:#when there is only one node in the Queue
+            #这样在queue空了之后，下次再加就不会出错，因为每次加都是加在tail的后面。
+            self.tail = self.dummy
+        
+        return item
+    
+    def peek(self):
+        if self.empty():
+            return None
+        
+        item = self.dummy.next.val
+        print(item)        
+        
+        
+    def empty(self):
+        return self.dummy.next is None
+    
+    def get_Queue(self):#输出整个queue
+        s = []
+        p = self.dummy.next
+        
+        while p:
+            s.append(p.val)
+            p = p.next
+        
+        print(s)
+
+
+queue = MyQueue()
+
+queue.enqueue(2)
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(4)
+
+
+queue.dequeue()
+queue.peek()
+queue.get_Queue()
+
